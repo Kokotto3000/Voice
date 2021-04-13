@@ -9,13 +9,13 @@ function main(){
 
     const greetings= ["bien bien bien, et toi ?", "qu'est-ce que ça peut te faire !", "Oh c'est tellement gentil de penser à moi !!! Merci !!!"];
 
-    //API expérimentale, ne marche pas avec tous les navigateurs, utiliser webkit pour autres que Chrome
+    //API expérimentale, ne marche pas avec tous les navigateurs... Chrome et android uniquement...
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    //ne marche pas avec Firefox... trouver solution !
+    //ne marche pas avec Firefox... trouver solution pour envoyer un  jolie message d'erreur si le navigateur ne fonctionne pas avec un . then .catch ...
     //console.log(recognition);
     //SpeechRecognition {grammars: SpeechGrammarList, lang: "", continuous: false, interimResults: false, maxAlternatives: 1, …}
-
+    //recognition.interimResults= true; uniquement pour écrire sinon l'ordi s'entend et se répond tout seul... (peut-être drôle cela dit :)))
 
     //ajout des fonctions
     /*recognition.onstart= ()=>{
@@ -49,7 +49,7 @@ function main(){
         //console.log(speech);
         
         //ajout des conditions
-        if(message.includes("comment ça va") || message.includes("ça roule") || message.includes("comment ça se passe")){
+        if(message.includes("ça va") || message.includes("comment ça va") || message.includes("ça roule") || message.includes("comment ça se passe")){
             //random sur les réponses
             const finalSpeech= greetings[Math.floor(Math.random()*greetings.length)];
             speech.text= finalSpeech;
@@ -63,8 +63,9 @@ function main(){
         speech.rate= 1;
         //ton plus ou moins élevé
         speech.pitch= 1;
-        //speech.voice= 1;
+        //il existe une liste de voix liées au navigateur pour chaque langue, mais je n'arrive pas encore à les changer (pauvre pioupiou, je crois qu'il va finir avec une voix de hortense)... voir notes sur synth.getVoices()
 
         window.speechSynthesis.speak(speech);
     }
+
 }
